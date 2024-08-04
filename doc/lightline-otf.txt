@@ -1,0 +1,86 @@
+*lightline-otf.txt*	Change the lightline colorscheme on the fly
+
+==============================================================================
+CONTENTS						*lightline-otf-contents*
+
+INTRODUCTION				 	|lightline-otf-introduction|
+CONFIGURATION					|lightline-otf-configuration|
+
+==============================================================================
+INTRODUCTION 					*lightline-otf-introduction*
+
+This plugin changes the lightline colorscheme on the fly if the vim
+colorscheme is changed.
+
+By default, this plugin maps the vim colorscheme names to the installed
+lightline colorscheme name which has the exact same name when searching and
+changing the lightline colorscheme. See |g:LightlineOtfColorschemeMapping| if
+you want to custom this mapping.
+
+==============================================================================
+CONFIGURATION					*lightline-otf-configuration*
+
+					*g:LightlineOtfColorschemeMapping*
+g:LightlineOtfColorschemeMapping~
+
+	This option maps from the vim colorscheme name to the lightline
+	colorscheme name.
+
+	The type of this option's value must be one of the following types,
+	and this plugin throws the error if not.
+
+				*g:LightlineOtfColorschemeMapping-dictionary*
+		|Dictionary|
+			The keys are vim colorscheme names, and the values are
+			lightline colorscheme names. If the dictionary has no
+			key for a vim colorscheme, this plugin assumes the key
+			is mapped to the exact same lightline colorscheme
+			name. For example,
+>
+			let g:LightlineOtfColorschemeMapping = {
+			\   'foo': 'bar',
+			\   'bar': 'foo',
+			\ }
+<
+			In this case, if the vim colorscheme is changed to
+			"foo", then the lightline colorscheme is done to "bar"
+			(if it is installed) on the fly. And "bar" to "foo"
+			too. All of other vim colorschemes, such as
+			"solarized", is mapped to "solarized".
+
+				*g:LightlineOtfColorschemeMapping-string*
+		|String|
+			The value must be a global user-defined function to
+			map vim colorscheme names to lightline colorscheme
+			names. The function must take a dictionary as an
+			argument and must return the the lightline colorscheme
+			name.
+
+			The dictionary as an argument has the following
+			key-value pairs.
+
+				"name"
+					The vim colorscheme name.
+
+					Internally, this value is <amatch> for
+					|ColorScheme|.
+
+				"file"
+					The vim colorscheme file path.
+
+					Internally, this value is <afile> for
+					|ColorScheme|.
+
+				*g:LightlineOtfColorschemeMapping-funcref*
+		|Funcref|
+			This option also allows |Funcref| to map from the vim
+			colorschemes to the lightline colorschemes using a
+			function.
+
+			See |g:LightlineOtfColorschemeMapping-string| about
+			the argument and the return value.
+
+	The default value is an empty |Dictionary|.
+
+==============================================================================
+vim:tw=78:ts=8:noet:ft=help:norl:
